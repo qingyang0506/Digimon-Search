@@ -40,7 +40,6 @@ function App() {
           height: "80vh",
           width: "80vw",
           margin: "auto",
-          // bgcolor:'pink',
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -87,7 +86,7 @@ function App() {
 
          <Grid container spacing={3}
          sx={{
-            mt:'2vh'
+            mt:'2vh',
          }}
          >
              {
