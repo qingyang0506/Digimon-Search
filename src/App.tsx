@@ -85,7 +85,7 @@ function App() {
           </Box>
         </Box>
 
-         {/* <Grid container spacing={3}
+         <Grid container spacing={3}
          sx={{
             mt:'2vh'
          }}
@@ -100,7 +100,7 @@ function App() {
               })
              }
              
-         </Grid> */}
+         </Grid>
       </Box>
     </Box>
   );
