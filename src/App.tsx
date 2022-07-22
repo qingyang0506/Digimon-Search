@@ -5,6 +5,8 @@ import {
   Button,
   Grid,
   IconButton,
+  Tooltip,
+  CircularProgress,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
@@ -16,10 +18,9 @@ import HelpModel from "./Component/HelpModel";
 
 function App() {
   const [input, setInput] = useState("");
-  const [dataArray, setDataArray] = useState<Digimon[] | null | undefined>(
-    undefined
-  );
+  const [dataArray, setDataArray] = useState<Digimon[] | null | undefined>([]);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
@@ -31,25 +32,26 @@ function App() {
   };
 
   const search = () => {
+    setLoading(true);
     if (input !== null && input !== undefined) {
       axios
         .get(`https://digimon-api.vercel.app/api/digimon/level/${input}`)
         .then((res) => {
           setDataArray(res.data);
-          console.log(res.data);
         })
         .catch((err) => {
-          console.log(err);
+          setDataArray(null);
         });
 
       axios
         .get(`https://digimon-api.vercel.app/api/digimon/name/${input}`)
         .then((res) => {
           setDataArray(res.data);
-          console.log(res.data);
+          setLoading(false);
         })
         .catch((err) => {
-          console.log(err);
+          setDataArray(null);
+          setLoading(false);
         });
     }
   };
@@ -68,9 +70,11 @@ function App() {
           right: "15vw",
         }}
       >
-        <IconButton onClick={() => setOpen(true)}>
-          <HelpIcon sx={{ fontSize: "40px" }} />
-        </IconButton>
+        <Tooltip title="help">
+          <IconButton onClick={() => setOpen(true)}>
+            <HelpIcon sx={{ fontSize: "40px" }} />
+          </IconButton>
+        </Tooltip>
       </Box>
       <Box
         sx={{
@@ -104,7 +108,7 @@ function App() {
               variant="outlined"
               placeholder="Search..."
               size="medium"
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => setInput(e.target.value.trim())}
             />
 
             <Button
@@ -121,22 +125,34 @@ function App() {
           </Box>
         </Box>
 
-        <Grid
-          container
-          spacing={3}
-          sx={{
-            mt: "2vh",
-          }}
-        >
-          {dataArray &&
-            dataArray.map((item: Digimon, index: number) => {
-              return (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                  <DigimonCard {...item} />
-                </Grid>
-              );
-            })}
-        </Grid>
+        {loading ? (
+          <Box sx={{ display: "flex", mt: "20vh" }}>
+            <CircularProgress />
+          </Box>
+        ) : dataArray === null || dataArray === undefined ? (
+          <Box sx={{ mt: "20vh" }}>
+            <Typography variant="h3" color={"pink"}>
+              No Result
+            </Typography>
+          </Box>
+        ) : (
+          <Grid
+            container
+            spacing={3}
+            sx={{
+              mt: "2vh",
+            }}
+          >
+            {dataArray &&
+              dataArray.map((item: Digimon, index: number) => {
+                return (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                    <DigimonCard {...item} />
+                  </Grid>
+                );
+              })}
+          </Grid>
+        )}
       </Box>
       {open ? <HelpModel {...data} /> : null}
     </Box>
