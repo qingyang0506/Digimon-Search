@@ -3,3 +3,8 @@ export type Digimon={
     level:string;
     img:string;
 }
+
+export interface Props{
+    open:boolean;
+    handleClose:()=>void;
+}

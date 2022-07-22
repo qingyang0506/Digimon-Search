@@ -1,31 +1,57 @@
-import { Box, Typography, TextField, Button,Grid } from "@mui/material";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Grid,
+  IconButton,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import axios from "axios";
-import {Digimon} from "./type"
+import { Digimon, Props } from "./type";
 import DigimonCard from "./Component/DigimonCard";
+import HelpIcon from "@mui/icons-material/Help";
+import HelpModel from "./Component/HelpModel";
 
 function App() {
+  const [input, setInput] = useState("");
+  const [dataArray, setDataArray] = useState<Digimon[] | null | undefined>(
+    undefined
+  );
+  const [open, setOpen] = useState(false);
 
-  const [input,setInput] = useState("");
-  const [dataArray,setDataArray] = useState<Digimon[] | null | undefined>(undefined);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const data: Props = {
+    open,
+    handleClose,
+  };
 
   const search = () => {
-      if(input!==null && input !== undefined){
-          axios.get(`https://digimon-api.vercel.app/api/digimon/level/${input}`).then(res=>{
-               setDataArray(res.data);
-               console.log(res.data);
-          }).catch(err=>{
-              console.log(err);
-          });
+    if (input !== null && input !== undefined) {
+      axios
+        .get(`https://digimon-api.vercel.app/api/digimon/level/${input}`)
+        .then((res) => {
+          setDataArray(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
-          axios.get(`https://digimon-api.vercel.app/api/digimon/name/${input}`).then(res=>{
-               setDataArray(res.data);
-                console.log(res.data);
-          }).catch(err=>{
-              console.log(err);
-          });
-      }
+      axios
+        .get(`https://digimon-api.vercel.app/api/digimon/name/${input}`)
+        .then((res) => {
+          setDataArray(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -35,6 +61,17 @@ function App() {
         minWidth: "100vw",
       }}
     >
+      <Box
+        sx={{
+          position: "absolute",
+          top: "12vh",
+          right: "15vw",
+        }}
+      >
+        <IconButton onClick={() => setOpen(true)}>
+          <HelpIcon sx={{ fontSize: "40px" }} />
+        </IconButton>
+      </Box>
       <Box
         sx={{
           height: "80vh",
@@ -84,23 +121,24 @@ function App() {
           </Box>
         </Box>
 
-         <Grid container spacing={3}
-         sx={{
-            mt:'2vh',
-         }}
-         >
-             {
-              dataArray && dataArray.map((item:Digimon,index:number)=>{
-                  return(
-                      <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                          <DigimonCard {...item}/>
-                      </Grid>
-                  )
-              })
-             }
-             
-         </Grid>
+        <Grid
+          container
+          spacing={3}
+          sx={{
+            mt: "2vh",
+          }}
+        >
+          {dataArray &&
+            dataArray.map((item: Digimon, index: number) => {
+              return (
+                <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                  <DigimonCard {...item} />
+                </Grid>
+              );
+            })}
+        </Grid>
       </Box>
+      {open ? <HelpModel {...data} /> : null}
     </Box>
   );
 }
