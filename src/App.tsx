@@ -70,8 +70,8 @@ function App() {
       <Box
         sx={{
           position: "absolute",
-          top: "12vh",
-          right: "15vw",
+          top: {xs:"4vh",sm:"12vh"},
+          right: {xs:"2vw",sm:"15vw"},
         }}
       >
         <Tooltip title="help">

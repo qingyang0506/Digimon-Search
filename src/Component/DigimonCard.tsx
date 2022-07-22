@@ -3,11 +3,11 @@ import {Card,CardActionArea,CardContent,Typography,CardMedia} from "@mui/materia
 
 const DigimonCard: React.FC<Digimon> = ({ img, name, level }) => {
   return (
-    <Card sx={{ maxWidth: 265 }}>
+    <Card sx={{ maxWidth:265}}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="220"
+          height="200"
           image={img}
           alt={name}
         />
