@@ -9,7 +9,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Digimon, Props } from "./type";
 import DigimonCard from "./Component/DigimonCard";
@@ -30,6 +30,10 @@ function App() {
     open,
     handleClose,
   };
+
+  useEffect(()=>{
+     console.clear();
+  })
 
   const search = () => {
     setLoading(true);

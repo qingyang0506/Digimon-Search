@@ -16,6 +16,7 @@ const style = {
   bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
+  borderRadius:4,
 };
 
 const HelpModel:React.FC<Props>= ({open,handleClose})=>{
