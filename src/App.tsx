@@ -37,6 +37,7 @@ function App() {
 
   const search = () => {
     setLoading(true);
+    setDataArray(null);
     if (input !== null && input !== undefined) {
       axios
         .get(`https://digimon-api.vercel.app/api/digimon/level/${input}`)
@@ -44,7 +45,6 @@ function App() {
           setDataArray(res.data);
         })
         .catch((err) => {
-          setDataArray(null);
         });
 
       axios
@@ -54,7 +54,6 @@ function App() {
           setLoading(false);
         })
         .catch((err) => {
-          setDataArray(null);
           setLoading(false);
         });
     }
