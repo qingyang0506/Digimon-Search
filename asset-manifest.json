@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Digimon-Search/static/css/main.9216b9a7.css",
-    "main.js": "/Digimon-Search/static/js/main.6efa13fc.js",
+    "main.js": "/Digimon-Search/static/js/main.3fa915f7.js",
     "static/media/background.jpeg": "/Digimon-Search/static/media/background.c2edc8851d8308a1208e.jpeg",
     "index.html": "/Digimon-Search/index.html",
     "main.9216b9a7.css.map": "/Digimon-Search/static/css/main.9216b9a7.css.map",
-    "main.6efa13fc.js.map": "/Digimon-Search/static/js/main.6efa13fc.js.map"
+    "main.3fa915f7.js.map": "/Digimon-Search/static/js/main.3fa915f7.js.map"
   },
   "entrypoints": [
     "static/css/main.9216b9a7.css",
-    "static/js/main.6efa13fc.js"
+    "static/js/main.3fa915f7.js"
   ]
 }
